@@ -1,4 +1,4 @@
-import { Upgrade } from "./upgrade";
+import { Upgrade } from "./Upgrade";
 
 export class ClickUpgrade extends Upgrade {
     clickPower: number;
