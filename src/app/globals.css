@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+button {
+  background-color: aliceblue;
+  color: black;
+  font-size: 3rem;
+  border: 1px solid blue;
+  border-radius: 8px;
+}
+
+.progress-button {
+  position: relative;
+  overflow: hidden;
+  padding: 10px 20px;
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #ff5722; /* Progress bar color */
+  transition: width 3s linear; /* Adjust the duration of the progress */
+}
+
+.progress-button.loading {
+  background-color: #ccc; /* Change button background when loading */
+  cursor: not-allowed;
+}
+
+.progress-bar.active {
+  width: 100%;
+}
+
+.trash {
+  color: lightgrey;
+}
+
+.common {
+  color: white; 
+}
+
+.uncommon {
+  color: green;
+}
+
+.rare {
+  color: blue; 
+}
+
+.epic {
+  color: purple;
+}
+
+.legendary {
+  color: orangered;
+}

@@ -1,0 +1,42 @@
+.progress-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Add this line */
+    width: fit-content; /* Add this line to make the container only as wide as its contents */
+  }
+  
+  
+  .progress-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; /* Ensure the progress bar does not overflow */
+  }
+  
+  .progress-button.loading {
+    cursor: not-allowed;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 5px;
+    background-color: #007bff;
+    animation: progress 1s linear infinite;
+    position: absolute;
+    bottom: 0; /* Position the progress bar at the bottom */
+    left: 0; /* Align the progress bar to the left */
+  }
+  
+  @keyframes progress {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
