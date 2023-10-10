@@ -51,19 +51,12 @@ export const buy = (wallet: number, cost: number) => {
 }
 
 export const generateItem = (player: Player): InventoryItem => {
-    const item = rollItem();
-    player.inventory.push(item);
+    const item = rollItem(Math.random() * 100);
+    addItemToInventory(player, item);
 
     return item;
 }
 
-/*
-export const generateItem = (player: Player): Item => {
-    const item = new Item();
-    console.log()
+export const addItemToInventory = (player: Player, item: InventoryItem) => {
     player.inventory.push(item);
-    player.clickPower += item.clickPower
-
-    return item;
 }
-*/

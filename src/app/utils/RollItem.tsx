@@ -2,17 +2,15 @@ import { Armor, Boots, ChestArmor, Helmet, Leggings, Weapon } from "../models/In
 import { Equipment, OneHandedWeapons, TwoHandedWeapons } from "./Enums";
 import { generateRarity } from "./GenerateRarity";
 
-export const rollItem = (): Armor | Weapon => {
-    const rollItemType = Math.random() * 100;
-
-    if (rollItemType >= 50) {
+export const rollItem = (roll: number): Armor | Weapon => {
+    if (roll <= 50) {
         return rollArmor(Math.random() * 100, generateRarity());
     } else {
-        return rollWeapon(Math.random() * 100, generateRarity());
+        return rollWeapon(Math.random() * 100, generateRarity(), Math.random() * 100);
     }
 }
 
-function rollArmor(roll: number, rarity: string): Armor {
+export function rollArmor(roll: number, rarity: string): Armor {
     let item: Armor;
     const rarityMultiplier = getRarityMultiplier(rarity);
     const armorRoll = Math.floor(Math.random() * 5) + 1 * rarityMultiplier;
@@ -31,9 +29,8 @@ function rollArmor(roll: number, rarity: string): Armor {
     return item;
 }
 
-function rollWeapon(roll: number, rarity: string): Weapon {
-    const rollWeaponType = Math.random() * 100;
-    const weaponType = rollWeaponType >= 50 ? "OneHanded" : "TwoHanded";
+export function rollWeapon(roll: number, rarity: string, rollForType: number): Weapon {
+    const weaponType = rollForType >= 50 ? "OneHanded" : "TwoHanded";
 
     let item;
 

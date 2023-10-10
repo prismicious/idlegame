@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import ProgressBarButton from "./components/ProgressBarButton";
 import { addMoney, buyUpgrade, generateItem } from "./game"; // Assuming you import clickButton from "./game"
 import { ClickUpgrade } from "./models/ClickUpgrade";
+import { Armor, Weapon } from "./models/Inventory/Equipment";
 import { PlayerEquipmentManager } from "./models/Inventory/PlayerEquipmentManager";
 import { Player } from "./models/Player";
 import { Upgrade } from "./models/Upgrade";
+import { OneHandedWeapons, TwoHandedWeapons } from "./utils/Enums";
 import { isUpgradeInList } from "./utils/isUpgradeInList";
-import { InventoryItem } from "./models/Inventory/Equipment/InventoryItem";
-import { Armor, Weapon } from "./models/Inventory/Equipment";
-import { TwoHandedWeapons, OneHandedWeapons } from "./utils/Enums";
+import Link from "next/link";
 
 export default function Home() {
   const [money, setMoney] = useState<number>(0);
@@ -27,7 +27,14 @@ export default function Home() {
   const clickUpgrade1 = new ClickUpgrade("click upgrade 1", 25, 0, 1);
 
   const explore = () => {
-    const item = generateItem(player);
+    const roll = Math.random() * 100;
+
+    addLog("Exploring...");
+    if (roll <= 50) {
+      const item = generateItem(player);
+    } else {
+      generateEvent(player);
+    }
   };
 
   const equipArmor = () => {
@@ -85,7 +92,9 @@ export default function Home() {
     <div>
       <h1>MineClicker</h1>
       <ProgressBarButton player={player} setMoney={setMoney} addLog={addLog} />
+      <button onClick={() => explore()}> Explore </button>
       <br />
+      <Link href="game/hello">Hello</Link>
       <div className="progress-btn" data-progress-style="fill-bottom">
         <div className="progress"></div>
       </div>
@@ -147,3 +156,8 @@ export default function Home() {
     </div>
   );
 }
+
+function generateEvent(player: Player) {
+  throw new Error("Function not implemented.");
+}
+
