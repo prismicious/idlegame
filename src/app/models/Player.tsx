@@ -1,5 +1,5 @@
-import { Item } from "./Item";
-import { Upgrade } from "./upgrade";
+import { InventoryItem } from "./Inventory/Equipment/InventoryItem";
+import { Upgrade } from "./Upgrade";
 
 export class Player {
     money: number;
@@ -7,7 +7,7 @@ export class Player {
     upgradeRate: number
     listOfUpgrades: Upgrade[];
     start: boolean;
-    inventory: Item[];
+    inventory: InventoryItem[];
 
     constructor() {
         this.money = 0;

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
+import { Player } from "../models/Player";
 import { generateItem, getGold } from "../game";
-import { Item } from "../models/Item";
-import { Player } from "../models/player";
 
 interface ProgressBarButtonProps {
     player: Player;
@@ -14,19 +13,19 @@ const ProgressBarButton: React.FC<ProgressBarButtonProps> = ({ player, setMoney 
     const [logs, setLogs] = useState<string[]>([]);
 
     const handleButtonClick = () => {
+
         setLoading(true);
-        const itemRoll = Math.random();
 
         let currentMoney = player.money;
-        if (itemRoll >= 0.8) {
-            const item: Item = generateItem(player)
-            addLog(`Found item ${item.name} with clickPower ${item.clickPower}!`)
-        }
-        else {
-            currentMoney = getGold(player);
+        const itemRoll = Math.random();
+        if (itemRoll >= 0.5) {
+            const item = generateItem(player);
+            addLog(`Found item ${item.name}`);
+        } else {
             addLog(`Found ${player.clickPower} gold!`);
-        }
+            getGold(player);
 
+        }
         setMoney(parseFloat(currentMoney.toFixed(2)));
 
         setTimeout(() => {

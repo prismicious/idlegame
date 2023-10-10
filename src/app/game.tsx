@@ -1,7 +1,8 @@
-import { ClickUpgrade } from "./models/clickUpgrade";
-import { Item } from "./models/Item";
-import { Player } from "./models/player";
-import { Upgrade } from "./models/upgrade";
+import { ClickUpgrade } from "./models/ClickUpgrade";
+import { InventoryItem } from "./models/Inventory/Equipment/InventoryItem";
+import { Player } from "./models/Player";
+import { Upgrade } from "./models/Upgrade";
+import { rollItem } from "./utils/RollItem";
 import { isUpgradeInList } from "./utils/isUpgradeInList";
 
 export const game = () => {
@@ -45,15 +46,17 @@ export const buyUpgrade = (player: Player, upgrade: Upgrade) => {
     }
 }
 
-export const buy = (price: number, cost: number) => {
-    price -= cost;
+export const buy = (wallet: number, cost: number) => {
+    wallet -= cost;
 }
 
-export const generateItem = (player: Player): Item => {
-    const item = new Item();
-    console.log()
-    player.inventory.push(item);
-    player.clickPower += item.clickPower
+export const generateItem = (player: Player): InventoryItem => {
+    const item = rollItem(Math.random() * 100);
+    addItemToInventory(player, item);
 
     return item;
+}
+
+export const addItemToInventory = (player: Player, item: InventoryItem) => {
+    player.inventory.push(item);
 }

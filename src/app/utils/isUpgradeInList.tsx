@@ -1,4 +1,4 @@
-import { Upgrade } from "../models/upgrade";
+import { Upgrade } from "../models/Upgrade";
 
 export function isUpgradeInList(upgrade: Upgrade, listOfUpgrades: Upgrade[]) {
     return listOfUpgrades.some((existingUpgrade) => {
