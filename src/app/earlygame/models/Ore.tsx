@@ -1,6 +1,7 @@
 import { InventoryItem } from "@/app/models/Inventory/Equipment/InventoryItem";
 import { OreTypes } from "./enums";
 import { OreItem } from "./OreItem";
+import { OreValues } from "../data/OreValues";
 
 export class Ore {
     type: OreTypes;
@@ -18,28 +19,14 @@ export class Ore {
     }
 }
 
-function getOreValue(type: OreTypes) {
-   switch (type) {
-    // Add cases
-    case OreTypes.Stone: 
-        return 1;
-    case OreTypes.Copper:
-        return 5;
-    case OreTypes.Bronze:
-        return 10;
-    case OreTypes.Silver:
-        return 15;
-    case OreTypes.Gold:
-        return 20;
-    case OreTypes.Platinum:
-        return 25;
-    case OreTypes.Diamond:
-        return 50;
-   }
+function getOreValue(type: OreTypes): number {
+    return OreValues[type.toString() as keyof typeof OreValues] ?? undefined;
 }
 
 function generateLoot(ore: Ore): OreItem[] {
-    const roll = Math.floor(Math.random() * 6) + 1;
+    const min = 1;
+    const max = 6;
+    const roll = Math.floor(Math.random() * max) + min
 
     let loot = [];
 

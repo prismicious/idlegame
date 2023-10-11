@@ -1,7 +1,7 @@
-import { InventoryItem } from "@/app/models/Inventory/Equipment/InventoryItem";
 import { Pickaxe } from "./Pickaxe";
 import { PickaxeTypes } from "./enums";
 import { OreItem } from "./OreItem";
+import { PickaxeFactory } from "../data/PickaxeFactory";
 
 
 export class EarlyPlayer {
@@ -20,7 +20,7 @@ export class EarlyPlayer {
         this.start = false;
         this.inventory = [];
         this.baseDamage = 0;
-        this.pickaxe = new Pickaxe(PickaxeTypes.Wood, 1);
+        this.pickaxe = new PickaxeFactory().createPickaxe(PickaxeTypes.Wood);
     }
 
     gainExperience(experience: number) {

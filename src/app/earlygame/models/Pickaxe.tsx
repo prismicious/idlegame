@@ -1,13 +1,20 @@
+import { Damage } from "./Damage";
 import { PickaxeTypes } from "./enums";
 
-export class Pickaxe {
+export abstract class BasePickaxe {
     type: PickaxeTypes;
-    damage: number;
-    name: string;
+    damage: Damage;
 
-    constructor(type: PickaxeTypes, damage: number) {
+    constructor(type: PickaxeTypes, damage: Damage) {
         this.type = type;
         this.damage = damage;
-        this.name = `Pickaxe: ${type} - Damage: ${damage}`
     }
 }
+
+export class Pickaxe extends BasePickaxe {
+    getName = () => `Pickaxe: ${this.type} - Damage: ${this.damage}`;
+    getDamage = (): number => {
+        return Math.floor(Math.random() * (this.damage.max - this.damage.min + 1) + this.damage.min);
+    }
+}
+
