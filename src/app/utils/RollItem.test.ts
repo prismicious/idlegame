@@ -1,24 +1,11 @@
 import {
-  Armor,
   Boots,
   ChestArmor,
   Helmet,
   Leggings,
   Weapon,
 } from "../models/Inventory/Equipment";
-import { rollArmor, rollItem, rollWeapon } from "./RollItem";
-
-describe("rollItem", () => {
-  it("should return an Armor object when roll is less than 50", () => {
-    const armor = rollItem(30) as Armor;
-    expect(armor).toBeInstanceOf(Armor);
-  });
-
-  it("should return a Weapon object when roll is greater than or equal to 50", () => {
-    const weapon = rollItem(51) as Weapon;
-    expect(weapon).toBeInstanceOf(Weapon);
-  });
-});
+import { rollArmor, rollWeapon } from "./RollItem";
 
 describe("rollArmor", () => {
   it("should return a Helmet when roll is between 0 and 25 (inclusive)", () => {

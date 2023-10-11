@@ -4,22 +4,10 @@ import { Armor, Boots, ChestArmor, Helmet, Leggings, Weapon } from "./Equipment/
 import { handleSlot1, handleSlot2 } from "./Equipment/slothandler";
 
 export class PlayerEquipmentManager {
-    public weaponSlot1: null | Weapon;
-    public weaponSlot2: null | Weapon;
-    public chestArmor: null | ChestArmor;
-    public boots: null | Boots;
-    public helmet: null | Helmet;
-    public leggings: null | Leggings;
     player: Player;
 
     constructor(player: Player) {
         this.player = player;
-        this.weaponSlot1 = null;
-        this.weaponSlot2 = null;
-        this.chestArmor = null;
-        this.boots = null;
-        this.leggings = null;
-        this.helmet = null;
     }
 
     equipArmor(item: Armor) {

@@ -5,6 +5,7 @@ import { Upgrade } from "./models/Upgrade";
 import { rollItem } from "./utils/RollItem";
 import { isUpgradeInList } from "./utils/isUpgradeInList";
 
+// TODO: What is this?
 export const game = () => {
 }
 
@@ -17,9 +18,10 @@ export const increaseMoney = (player: Player) => {
 }
 
 export const getGold = (player: Player): number => {
-    const goldAmt = player.clickPower;
-    console.log(`Found ${goldAmt} gold`);
-    player.money += goldAmt;
+    const goldAmount = player.clickPower;
+    // TODO: What is goldAmount?
+    console.log(`Found ${goldAmount} gold`);
+    player.money += goldAmount;
 
     return player.money;
 }

@@ -5,70 +5,49 @@ import { generateRarity } from "./GenerateRarity";
 export const rollItem = (roll: number): Armor | Weapon => {
     if (roll <= 50) {
         return rollArmor(Math.random() * 100, generateRarity());
-    } else {
-        return rollWeapon(Math.random() * 100, generateRarity(), Math.random() * 100);
-    }
+    } 
+    return rollWeapon(Math.random() * 100, generateRarity(), Math.random() * 100);
 }
 
 export function rollArmor(roll: number, rarity: string): Armor {
-    let item: Armor;
     const rarityMultiplier = getRarityMultiplier(rarity);
     const armorRoll = Math.floor(Math.random() * 5) + 1 * rarityMultiplier;
-    if (roll <= 25 && roll >= 0) {
-        item = new Helmet(`Helmet (${rarity})`, armorRoll, Equipment.Helmet, rarity);
-    } else if (roll >= 25 && roll <= 50) {
-        item = new Boots(`Boots (${rarity})`, armorRoll, Equipment.Boots, rarity);
-    } else if (roll >= 50 && roll <= 75) {
-        item = new Leggings(`Leggings (${rarity})`, armorRoll, Equipment.Leggings, rarity);
-    } else if (roll >= 75 && roll <= 100) {
-        item = new ChestArmor(`ChestArmor (${rarity})`, armorRoll, Equipment.ChestArmor, rarity);
-    } else {
-        throw new Error(`Item was not assigned, roll: ${roll}`);
-    }
-
-    return item;
+    const supportedArmors = [
+        new Helmet(`Helmet (${rarity})`, armorRoll, Equipment.Helmet, rarity),
+        new Boots(`Boots (${rarity})`, armorRoll, Equipment.Boots, rarity),
+        new Leggings(`Leggings (${rarity})`, armorRoll, Equipment.Leggings, rarity),
+        new ChestArmor(`ChestArmor (${rarity})`, armorRoll, Equipment.ChestArmor, rarity)
+    ];
+    const amountArmors = supportedArmors.length;
+    const selectedArmorType = Math.round(Math.random() * (amountArmors - 1));
+    if (!supportedArmors[selectedArmorType]) throw new Error(`Item was not assigned, roll: ${roll}`)
+    return supportedArmors[selectedArmorType];
 }
 
 export function rollWeapon(roll: number, rarity: string, rollForType: number): Weapon {
     const weaponType = rollForType >= 50 ? "OneHanded" : "TwoHanded";
-
-    let item;
-
-    if (weaponType == "OneHanded") {
-        if (roll <= 12) {
-            item = new Weapon(`Wand (${rarity})`, OneHandedWeapons.Wand, rarity);
-        } else if (roll >= 12 && roll <= 25) {
-            item = new Weapon(`Sword (${rarity})`, OneHandedWeapons.Sword, rarity);
-        } else if (roll >= 26 && roll <= 50) {
-            item = new Weapon(`Axe (${rarity})`, OneHandedWeapons.Axe, rarity);
-        } else if (roll >= 51 && roll <= 75) {
-            item = new Weapon(`Dagger (${rarity})`, OneHandedWeapons.Dagger, rarity);
-        } else if (roll >= 76 && roll <= 100) {
-            item = new Weapon(`Shield (${rarity})`, OneHandedWeapons.Shield, rarity);
-        } 
+    const supportedWeapons = {
+        "OneHanded": [
+            new Weapon(`Wand (${rarity})`, OneHandedWeapons.Wand, rarity),
+            new Weapon(`Sword (${rarity})`, OneHandedWeapons.Sword, rarity),
+            new Weapon(`Axe (${rarity})`, OneHandedWeapons.Axe, rarity),
+            new Weapon(`Dagger (${rarity})`, OneHandedWeapons.Dagger, rarity),
+            new Weapon(`Shield (${rarity})`, OneHandedWeapons.Shield, rarity)
+        ],
+        "TwoHanded": [
+            new Weapon(`Sword (${rarity})`, TwoHandedWeapons.Sword, rarity),
+            new Weapon(`Axe (${rarity})`, TwoHandedWeapons.Axe, rarity),
+            new Weapon(`Bow (${rarity})`, TwoHandedWeapons.Bow, rarity),
+            new Weapon(`Hammer (${rarity})`, TwoHandedWeapons.Hammer, rarity),
+            new Weapon(`Staff (${rarity})`, TwoHandedWeapons.Staff, rarity),
+        ]
     }
-
-    if (weaponType == "TwoHanded") {
-        if (roll <= 12) {
-            item = new Weapon(`Axe (${rarity})`, TwoHandedWeapons.Axe, rarity);
-        } else if (roll >= 12 && roll <= 25) {
-            item = new Weapon(`Sword (${rarity})`, TwoHandedWeapons.Sword, rarity);
-        } else if (roll >= 26 && roll <= 50) {
-            item = new Weapon(`Bow (${rarity})`, TwoHandedWeapons.Bow, rarity);
-        } else if (roll >= 51 && roll <= 75) {
-            item = new Weapon(`Staff (${rarity})`, TwoHandedWeapons.Staff, rarity);
-        } else if (roll >= 76 && roll <= 100) {
-            item = new Weapon(`Hammer (${rarity})`, TwoHandedWeapons.Hammer, rarity);
-        }
-    }
-
-    if (!item) {
-        throw new Error(`Item was not assigned, roll: ${roll}`);
-    }
-
-    return item;
+    const amountArmors = supportedWeapons[weaponType].length;
+    const selectedArmorType = Math.round(Math.random() * (amountArmors - 1));
+    if (!supportedWeapons[weaponType][selectedArmorType]) throw new Error(`Item was not assigned, roll: ${roll}`);
+    return supportedWeapons[weaponType][selectedArmorType];
 }
-
+// TODO: Explain what is this?= What does him this do? explain me. now
 const getRarityMultiplier = (rarity: string): number => {
     switch (rarity) {
         case "Trash": return 1;
@@ -77,7 +56,6 @@ const getRarityMultiplier = (rarity: string): number => {
         case "Rare": return 10;
         case "Epic": return 15;
         case "Legendary": return 25;
-
         default: return 1;
     }
 }
