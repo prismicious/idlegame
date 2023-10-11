@@ -1,6 +1,7 @@
 import { Equipment, OneHandedWeapons, TwoHandedWeapons } from "@/app/utils/Enums";
 import { Player } from "../Player";
 import { Armor, Boots, ChestArmor, Helmet, Leggings, Weapon } from "./Equipment/";
+import { handleSlot1, handleSlot2 } from "./Equipment/slothandler";
 
 export class PlayerEquipmentManager {
     public weaponSlot1: null | Weapon;
@@ -58,43 +59,11 @@ export class PlayerEquipmentManager {
     equipWeapon(weapon: Weapon, slot: 1 | 2) {
         console.log(weapon)
         if (slot == 1) {
-            if (weapon.type in TwoHandedWeapons) {
-                if (this.weaponSlot1) {
-                    this.player.inventory.push(this.weaponSlot1);
-                    this.weaponSlot1 = weapon;
-                    return;
-                } else {
-                    this.weaponSlot1 = weapon;
-                }
-
-                if (this.weaponSlot2) {
-                    this.player.inventory.push(this.weaponSlot2)
-                    this.weaponSlot2 = null;
-                    return;
-                }
-            }
-
-            if (weapon.type in OneHandedWeapons) {
-                if (this.weaponSlot1) {
-                    this.player.inventory.push(this.weaponSlot1);
-                    this.weaponSlot1 = weapon;
-                    return;
-                } else {
-                    this.weaponSlot1 = weapon;
-                }
-            }
+            handleSlot1(weapon, this);
         }
 
         if (slot == 2) {
-            if (weapon.type in OneHandedWeapons) {
-                if (this.weaponSlot2) {
-                    this.player.inventory.push(this.weaponSlot2);
-                    this.weaponSlot2 = weapon;
-                    return;
-                }
-            } else {
-                throw new Error("Cant equip two-handed weapons in slot 2.");
-            }
+            handleSlot2(weapon, this);
         }
 
         console.log(this.weaponSlot1);
