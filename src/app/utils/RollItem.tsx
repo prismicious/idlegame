@@ -9,6 +9,12 @@ export const rollItem = (roll: number): Armor | Weapon => {
     return rollWeapon(Math.random() * 100, generateRarity(), Math.random() * 100);
 }
 
+/**
+ * This is a method
+ * @param roll A number
+ * @param rarity A string
+ * @returns An armor
+ */
 export function rollArmor(roll: number, rarity: string): Armor {
     const rarityMultiplier = getRarityMultiplier(rarity);
     const armorRoll = Math.floor(Math.random() * 5) + 1 * rarityMultiplier;
